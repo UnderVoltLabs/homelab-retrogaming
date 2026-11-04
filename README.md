@@ -1,6 +1,6 @@
 # 🎮 homelab-retrogaming
 
-A repurposed desktop turned into a **solo gaming box**: emulation from the
+A repurposed desktop being turned into a **solo gaming box** (work in progress): emulation from the
 NES to the Wii U and PC games through Proton, all driven from a controller
 and streamed to other screens in the house.
 
@@ -15,26 +15,19 @@ and streamed to other screens in the house.
 
 ## Stack
 
-**System**
 - Linux Mint 22.3 Cinnamon
-- NVIDIA 580 driver (legacy branch, last one to support Pascal cards)
+- Tailscale 1.104.1 for remote access
+- OpenSSH server, key-based, from the Windows admin laptop
 
-**Emulation**
-- RetroDECK, from the NES to the Wii U
-
-**PC games**
-- Steam + Proton for Windows games
-- Native Linux source ports with controller support
-
-**Streaming**
-- Sunshine on the gaming box (host)
-- Moonlight on the other devices (clients)
+Everything else is tracked in Progress below.
 
 ## Progress
 
 | Step | Status |
 |------|--------|
-| Install Linux Mint 22.3 Cinnamon | ⬜ Planned |
+| Install Linux Mint 22.3 Cinnamon | ✅ Done |
+| Install Tailscale | ✅ Done |
+| SSH remote administration (key-based) | ✅ Done |
 | NVIDIA 580 driver | ⬜ Planned |
 | Steam + Proton | ⬜ Planned |
 | RetroDECK (NES to Wii U) | ⬜ Planned |
@@ -43,3 +36,8 @@ and streamed to other screens in the house.
 | Controller-driven launcher menu | 💡 Idea |
 
 ## Log
+
+### 2026-11-03
+- Installed and connected Tailscale on the gaming box.
+- Installed `openssh-server` and authorized the Windows laptop's ed25519 key.
+- Added a `retrogaming` host alias in the laptop's SSH config; `ssh retrogaming` works.
