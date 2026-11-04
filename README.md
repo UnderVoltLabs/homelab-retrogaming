@@ -19,8 +19,6 @@ and streamed to other screens in the house.
 - Tailscale 1.104.1 for remote access
 - OpenSSH server, key-based, from the Windows admin laptop
 
-Everything else is tracked in Progress below.
-
 ## Progress
 
 | Step | Status |
@@ -28,7 +26,7 @@ Everything else is tracked in Progress below.
 | Install Linux Mint 22.3 Cinnamon | ✅ Done |
 | Install Tailscale | ✅ Done |
 | SSH remote administration (key-based) | ✅ Done |
-| NVIDIA 580 driver | ⬜ Planned |
+| NVIDIA 580 driver | ✅ Done |
 | Steam + Proton | ⬜ Planned |
 | RetroDECK (NES to Wii U) | ⬜ Planned |
 | Native source ports | ⬜ Planned |
@@ -38,6 +36,9 @@ Everything else is tracked in Progress below.
 ## Log
 
 ### 2026-11-03
+- Installed Linux Mint 22.3 Cinnamon on the gaming box.
 - Installed and connected Tailscale on the gaming box.
 - Installed `openssh-server` and authorized the Windows laptop's ed25519 key.
 - Added a `retrogaming` host alias in the laptop's SSH config; `ssh retrogaming` works.
+- Installed the NVIDIA 580 driver, built with DKMS; `nvidia-smi` sees the Quadro P4000.
+- Secure Boot had to be disabled in the HP BIOS for the driver to load.
