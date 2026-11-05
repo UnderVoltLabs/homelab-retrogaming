@@ -20,6 +20,9 @@ and streamed to other screens in the house.
 - Managed from the laptop over SSH (via Tailscale)
 - Secure Boot enabled (Standard mode, HP PC, boot via `shimx64.efi`)
 - NVIDIA driver 580.178.04 via DKMS, signed with a personal MOK key
+- Steam + Proton for PC games
+- Sunshine v2025.923.33222 (pinned) for streaming, web management on port 47990
+- Moonlight on the Sony Google TV (wired Ethernet)
 
 ## Progress
 
@@ -29,13 +32,20 @@ and streamed to other screens in the house.
 | Install Tailscale | ✅ Done |
 | SSH remote administration (key-based) | ✅ Done |
 | NVIDIA 580 driver (DKMS, Secure Boot on, MOK-signed) | ✅ Done |
-| Steam + Proton | ⬜ Planned |
+| Steam + Proton | ✅ Done |
 | RetroDECK (NES to Wii U) | ⬜ Planned |
 | Native source ports | ⬜ Planned |
-| Sunshine + Moonlight streaming | ⬜ Planned |
+| Sunshine + Moonlight streaming | ✅ Done |
 | Controller-driven launcher menu | 💡 Idea |
 
 ## Log
+
+### 2026-11-05
+- Installed and configured Sunshine (v2025.923.33222). Pinned because the newer version (2026.914) does not support the GPU (NVENC fails on Pascal, LizardByte/Sunshine#5725). Web management on port 47990.
+- Installed Moonlight on the Sony Google TV (wired Ethernet): 1080p60, 1 ms latency.
+- Installed Steam and enabled Proton.
+- Tested Dark Souls 1 streamed to the TV: runs fluidly at 60 FPS, 1080p, low latency.
+- Known issue: the PowerA controller does not work well on PC. Plan: buy an Xbox controller.
 
 ### 2026-11-04
 - Created my own signing key ("Homelab DKMS MOK") and enrolled it with `mokutil` (MokManager screen at reboot).
