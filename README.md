@@ -21,7 +21,7 @@ and streamed to other screens in the house.
 - Secure Boot enabled (Standard mode, HP PC, boot via `shimx64.efi`)
 - NVIDIA driver 580.178.04 via DKMS, signed with a personal MOK key
 - Steam + Proton for PC games
-- Sunshine v2025.923.33222 (pinned) for streaming, managed through its web UI at `https://retrogaming:47990` over Tailscale (port 47990)
+- Sunshine v2025.923.33222 (pinned) for streaming, web management on port 47990
 - Moonlight on the Sony Google TV (wired Ethernet)
 
 ## Progress
@@ -41,7 +41,7 @@ and streamed to other screens in the house.
 ## Log
 
 ### 2026-11-05
-- Installed and configured Sunshine (v2025.923.33222). Pinned because the newer version (2026.914) does not support the GPU (NVENC fails on Pascal, LizardByte/Sunshine#5725). Web UI: `https://retrogaming:47990` over Tailscale (port 47990).
+- Installed and configured Sunshine (v2025.923.33222). Pinned because the newer version (2026.914) does not support the GPU (NVENC fails on Pascal, LizardByte/Sunshine#5725). Web management on port 47990.
 - Installed Moonlight on the Sony Google TV (wired Ethernet): 1080p60, 1 ms latency.
 - Installed Steam and enabled Proton.
 - Tested Dark Souls 1 streamed to the TV: runs fluidly at 60 FPS, 1080p, low latency.
