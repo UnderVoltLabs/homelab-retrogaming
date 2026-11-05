@@ -17,7 +17,7 @@ and streamed to other screens in the house.
 
 - Linux Mint 22.3 Cinnamon
 - Tailscale 1.104.1 for remote access
-- OpenSSH server, key-based, from the Windows admin laptop
+- Managed from the laptop over SSH (via Tailscale)
 - Secure Boot enabled (Standard mode, HP PC, boot via `shimx64.efi`)
 - NVIDIA driver 580.178.04 via DKMS, signed with a personal MOK key
 
