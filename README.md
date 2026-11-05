@@ -17,7 +17,9 @@ and streamed to other screens in the house.
 
 - Linux Mint 22.3 Cinnamon
 - Tailscale 1.104.1 for remote access
-- OpenSSH server, key-based, from the Windows admin laptop
+- Managed from the laptop over SSH (via Tailscale)
+- Secure Boot enabled (Standard mode, HP PC, boot via `shimx64.efi`)
+- NVIDIA driver 580.178.04 via DKMS, signed with a personal MOK key
 
 ## Progress
 
@@ -26,7 +28,7 @@ and streamed to other screens in the house.
 | Install Linux Mint 22.3 Cinnamon | ✅ Done |
 | Install Tailscale | ✅ Done |
 | SSH remote administration (key-based) | ✅ Done |
-| NVIDIA 580 driver | ✅ Done |
+| NVIDIA 580 driver (DKMS, Secure Boot on, MOK-signed) | ✅ Done |
 | Steam + Proton | ⬜ Planned |
 | RetroDECK (NES to Wii U) | ⬜ Planned |
 | Native source ports | ⬜ Planned |
@@ -34,6 +36,11 @@ and streamed to other screens in the house.
 | Controller-driven launcher menu | 💡 Idea |
 
 ## Log
+
+### 2026-11-04
+- Created my own signing key ("Homelab DKMS MOK") and enrolled it with `mokutil` (MokManager screen at reboot).
+- Signed the NVIDIA 580.178.04 DKMS driver with that key (rebuilt with `dkms remove` + `dkms install`; `--force` does not re-sign).
+- Re-enabled Secure Boot (Standard mode); `modinfo -F signer nvidia` shows the key and `nvidia-smi` works.
 
 ### 2026-11-03
 - Installed Linux Mint 22.3 Cinnamon on the gaming box.
