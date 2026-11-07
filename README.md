@@ -16,6 +16,15 @@ and streamed to other screens in the house.
 
 The whole PC was bought for **$50**.
 
+### Network wiring
+
+```
+Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
+                          └── Gaming PC (the "box")
+```
+
+The switch is plugged into the router, and the Sony Google TV and the gaming PC are plugged into the switch.
+
 ## Stack
 
 - Linux Mint 22.3 Cinnamon
