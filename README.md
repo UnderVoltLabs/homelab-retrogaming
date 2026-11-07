@@ -21,9 +21,15 @@ The whole PC was bought for **$50**.
 ```
 Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
                           └── Gaming PC (the "box")
+                                   ┆
+                                   ┆  Tailscale (SSH), virtual link
+                                   ┆
+                              Laptop (anywhere)
 ```
 
 The switch is plugged into the router, and the Sony Google TV and the gaming PC are plugged into the switch.
+
+The dotted line is **not a cable**: the laptop is not on the switch. It reaches the gaming box over the Tailscale tailnet (SSH) from anywhere, through the internet.
 
 ## Stack
 
