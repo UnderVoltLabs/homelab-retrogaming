@@ -12,6 +12,9 @@ and streamed to other screens in the house.
 | GPU | NVIDIA Quadro P4000 (8 GB VRAM, Pascal) |
 | RAM | 16 GB |
 | Storage | 2 TB HDD |
+| Network switch | UGREEN 8-port 2.5G Ethernet switch (unmanaged, metal case, plug & play) |
+
+The whole PC was bought for **$50**.
 
 ## Stack
 
