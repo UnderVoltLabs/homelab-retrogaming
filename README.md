@@ -20,10 +20,10 @@ The whole PC was bought for **$50**.
 
 ```
 Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
-                          └── TV box
+                          └── Gaming PC (the "box")
 ```
 
-The switch is plugged into the router, and the Sony Google TV and the TV box are plugged into the switch.
+The switch is plugged into the router, and the Sony Google TV and the gaming PC are plugged into the switch.
 
 ## Stack
 
