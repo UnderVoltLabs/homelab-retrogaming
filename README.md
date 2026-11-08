@@ -54,6 +54,13 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 
 ## Log
 
+### 2026-11-08
+- Bug after rebooting the box: Sunshine was no longer running, so Moonlight could not see the PC. Probable cause (not confirmed): Cinnamon does not trigger `graphical-session.target`, so the enabled Sunshine systemd user service never starts at login.
+- Immediate fix: started the Sunshine user service by hand; Moonlight saw the box again right away.
+- Permanent fix: added `~/.config/autostart/sunshine-start.desktop` (listed in Menu → Applications au démarrage as "Sunshine (start)"). 5 seconds after login it runs `systemctl --user import-environment DISPLAY XAUTHORITY` then `systemctl --user start` on the Sunshine service. It relies on LightDM auto-login so a session exists after boot.
+- To verify: a full reboot test with the autostart entry is still pending.
+- Tailscale was briefly offline after the reboot too, but reconnected on its own.
+
 ### 2026-11-05
 - Installed and configured Sunshine (v2025.923.33222). Pinned because the newer version (2026.914) does not support the GPU (NVENC fails on Pascal, LizardByte/Sunshine#5725). Web management on port 47990.
 - Installed Moonlight on the Sony Google TV (wired Ethernet): 1080p60, 1 ms latency.
