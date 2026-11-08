@@ -57,10 +57,10 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 ### 2026-11-08
 - Bug after rebooting the box: Sunshine was no longer running, so Moonlight could not see the PC. Starting the Sunshine user service by hand made Moonlight work again right away, so the problem was that no desktop session existed after boot.
 - Root cause: in `/etc/lightdm/lightdm.conf`, `autologin-user-timeout=1` made LightDM show the login screen first and only auto-login about 18 s later (any input could cancel it). No Cinnamon session meant the Sunshine systemd user service never started.
-- Fix: set `autologin-user-timeout=0` so the box boots straight to the desktop.
-- Also kept `~/.config/autostart/sunshine-start.desktop` (listed in Menu → Applications au démarrage as "Sunshine (start)"). 5 seconds after login it runs `systemctl --user import-environment DISPLAY XAUTHORITY` then `systemctl --user start` on the Sunshine service, as a safety net.
+- Fix: set `autologin-user-timeout=0` so the box boots straight to the desktop (also doable from Login Window → Users by setting the delay to 0).
+- Safety net (never proven required): `~/.config/autostart/sunshine-start.desktop`, listed in Menu → Applications au démarrage as "Sunshine (start)". 5 seconds after login it runs `systemctl --user import-environment DISPLAY XAUTHORITY` then `systemctl --user start` on the Sunshine service.
 - Confirmed with a real reboot: Sunshine is up and Moonlight sees the box.
-- Tailscale was briefly offline after the reboot too, but reconnected on its own.
+- Tailscale was briefly offline after the reboot too, but came back on its own.
 
 ### 2026-11-05
 - Installed and configured Sunshine (v2025.923.33222). Pinned because the newer version (2026.914) does not support the GPU (NVENC fails on Pascal, LizardByte/Sunshine#5725). Web management on port 47990.
