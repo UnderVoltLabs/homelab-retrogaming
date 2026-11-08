@@ -54,6 +54,12 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 
 ## Log
 
+### 2026-11-07
+- Bug: after a reboot, Sunshine did not start and Moonlight could not see the PC.
+- Fix 1: the Sunshine service did not start by itself, so added `~/.config/autostart/sunshine-start.desktop` ("Sunshine (start)" in Menu → Startup Applications).
+- Fix 2: autologin was too slow (LightDM `autologin-user-timeout=1`), so set `autologin-user-timeout=0` in `/etc/lightdm/lightdm.conf`.
+- Both are required. Confirmed after a real reboot.
+
 ### 2026-11-05
 - Installed and configured Sunshine (v2025.923.33222). Pinned because the newer version (2026.914) does not support the GPU (NVENC fails on Pascal, LizardByte/Sunshine#5725). Web management on port 47990.
 - Installed Moonlight on the Sony Google TV (wired Ethernet): 1080p60, 1 ms latency.
