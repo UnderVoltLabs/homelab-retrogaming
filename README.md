@@ -37,6 +37,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 - Steam + Proton for PC games
 - Sunshine v2025.923.33222 (pinned) for streaming, web management on port 47990
 - Moonlight on the Sony Google TV (wired Ethernet)
+- RetroDECK (Flatpak), added to Steam as a non-Steam game and launched from Big Picture with Steam Input
 
 ## Progress
 
@@ -47,10 +48,9 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 | SSH remote administration (key-based) | ✅ Done |
 | NVIDIA 580 driver (DKMS, Secure Boot on, MOK-signed) | ✅ Done |
 | Steam + Proton | ✅ Done |
-| RetroDECK (NES to Wii U) | ⬜ Planned |
-| Native source ports | ⬜ Planned |
+| RetroDECK (NES to Wii U): install, Steam Big Picture link, inputs | ✅ Done |
 | Sunshine + Moonlight streaming | ✅ Done |
-| Controller-driven launcher menu | 💡 Idea |
+| Hardware monitoring | ⬜ Planned |
 
 ## Log
 
@@ -59,6 +59,10 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 - `xrandr --newmode/--addmode` is refused by the NVIDIA driver (BadMatch). Forcing 1080p in `xorg.conf` worked, but Cinnamon crashed (`layoutManager.primaryMonitor is undefined`), so the configs were removed.
 - Workaround for now: Moonlight's "stretch video" option.
 - Plan: buy a 4K dummy plug (DisplayPort direct on the Quadro preferred), then set the desktop to 1920x1080.
+- Installed RetroDECK over SSH: `sudo flatpak install -y flathub net.retrodeck.retrodeck` (`sudo` required over SSH).
+- First launch and configuration through Moonlight Desktop.
+- Added RetroDECK to Steam as a non-Steam game.
+- Inputs: enabled Steam Input in the RetroDECK properties; the controller shows up as an Xbox pad and the emulators are preconfigured.
 
 ### 2026-11-07
 - Bug: after a reboot, Sunshine did not start and Moonlight could not see the PC.
