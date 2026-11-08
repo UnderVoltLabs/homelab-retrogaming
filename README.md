@@ -49,7 +49,6 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 | NVIDIA 580 driver (DKMS, Secure Boot on, MOK-signed) | ✅ Done |
 | Steam + Proton | ✅ Done |
 | RetroDECK (NES to Wii U): install, Steam Big Picture link, inputs | ✅ Done |
-| Native source ports | ⬜ Planned |
 | Sunshine + Moonlight streaming | ✅ Done |
 
 ## Log
