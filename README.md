@@ -55,8 +55,9 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 ## Log
 
 ### 2026-11-08
-- Known issue: with no screen plugged in, the Quadro P4000 (DP-to-HDMI adapter) reports no EDID, so X falls back to 1024x768 (4:3) and the Moonlight stream has black bars on the 4K TV.
-- Tried forcing 1080p in `xorg.conf`: Cinnamon broke (no primary monitor), reverted.
+- Known issue: with no screen plugged in, the Quadro P4000 (DP-to-HDMI adapter, output DP-7) reports no EDID, so X falls back to 1024x768 (4:3) and the Moonlight stream has black bars on the 4K TV.
+- `xrandr --newmode/--addmode` is refused by the NVIDIA driver (BadMatch). Forcing 1080p in `xorg.conf` worked, but Cinnamon crashed (`layoutManager.primaryMonitor is undefined`), so the configs were removed.
+- Workaround for now: Moonlight's "stretch video" option.
 - Plan: buy a 4K dummy plug (DisplayPort direct on the Quadro preferred), then set the desktop to 1920x1080.
 
 ### 2026-11-07
