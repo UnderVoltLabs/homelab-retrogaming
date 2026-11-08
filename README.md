@@ -54,6 +54,11 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 
 ## Log
 
+### 2026-11-08
+- Known issue: with no screen plugged in, the Quadro P4000 (DP-to-HDMI adapter) reports no EDID, so X falls back to 1024x768 (4:3) and the Moonlight stream has black bars on the 4K TV.
+- Tried forcing 1080p in `xorg.conf`: Cinnamon broke (no primary monitor), reverted.
+- Plan: buy a 4K dummy plug (DisplayPort direct on the Quadro preferred), then set the desktop to 1920x1080.
+
 ### 2026-11-07
 - Bug: after a reboot, Sunshine did not start and Moonlight could not see the PC.
 - Fix 1: the Sunshine service did not start by itself, so added `~/.config/autostart/sunshine-start.desktop` ("Sunshine (start)" in Menu → Startup Applications).
