@@ -52,28 +52,11 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 | Sunshine + Moonlight streaming | ✅ Done |
 | Hardware monitoring | ⬜ Planned |
 
-## Controller hotkeys (RetroDECK)
-
-Prerequisite: Steam Input profile "RetroDECK: Xbox Wireless" (or "RetroDECK: Xbox 360") applied to RetroDECK in Big Picture → controller → Layout → Browse configs.
-
-Hold **Select (View)** plus:
-
-| Button | Action |
-|--------|--------|
-| RB | Save state |
-| LB | Load state |
-| Start | Quit game |
-| A | Pause |
-| Y | Emulator menu |
-| RT | Fast forward |
-| D-pad left/right | Change save slot |
-| Left stick | Radial menu (confirm with L3) |
-
-Works in RetroArch, Dolphin, PCSX2, Azahar and DuckStation. For Cemu, use the in-game save. Source: https://retrodeck.readthedocs.io/en/latest/wiki_rd_controls/hotkeys-xbox/
-
 ## Log
 
 ### 2026-11-08
+- Known issue: with no screen plugged in, the PC has no display, so the resolution falls back to 1024x768 (4:3) and the Moonlight stream has black bars on the TV.
+- Fix needed: buy a dummy plug (fake screen) for the GPU.
 - Installed RetroDECK over SSH: `sudo flatpak install -y flathub net.retrodeck.retrodeck` (`sudo` required over SSH).
 - First launch and configuration through Moonlight Desktop.
 - Added RetroDECK to Steam as a non-Steam game.
