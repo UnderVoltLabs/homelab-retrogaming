@@ -58,7 +58,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 ### 2026-11-08
 - Installed RetroDECK over SSH: `sudo flatpak install -y flathub net.retrodeck.retrodeck` (`sudo` required over SSH).
 - First launch and configuration through Moonlight Desktop.
-- Added RetroDECK to Steam as a non-Steam game (fallback: `/usr/bin/flatpak` with launch option `run net.retrodeck.retrodeck`); it shows in the Non-Steam tab of Big Picture.
+- Added RetroDECK to Steam as a non-Steam game.
 - Inputs: enabled Steam Input in the RetroDECK properties; the controller shows up as an Xbox pad and the emulators are preconfigured.
 
 ### 2026-11-07
