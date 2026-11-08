@@ -54,7 +54,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 
 ## Log
 
-### 2026-11-08
+### 2026-11-07
 - Bug after rebooting the box: Sunshine was no longer running, so Moonlight could not see the PC. Starting the Sunshine user service by hand made Moonlight work again right away.
 - Two fixes were needed, both required:
   1. Root cause of the missing session: in `/etc/lightdm/lightdm.conf`, `autologin-user-timeout=1` made LightDM show the login screen first and only auto-login about 18 s later (any input could cancel it). Fixed by setting `autologin-user-timeout=0` so the box boots straight to the desktop (also doable from Login Window → Users by setting the delay to 0).
