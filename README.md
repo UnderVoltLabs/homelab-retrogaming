@@ -55,6 +55,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 ## Log
 
 ### 2026-11-08
+- Bought an 8BitDo Ultimate 2C controller (replaces the PowerA, plan changed from the Xbox controller).
 - Known issue: with no screen plugged in, the PC has no display, so the resolution falls back to 1024x768 (4:3) and the Moonlight stream has black bars on the TV.
 - Fix needed: buy a dummy plug (fake screen) for the GPU.
 - Installed RetroDECK over SSH: `sudo flatpak install -y flathub net.retrodeck.retrodeck` (`sudo` required over SSH).
