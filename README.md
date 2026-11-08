@@ -56,7 +56,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 
 ### 2026-11-07
 - Bug: after a reboot, Sunshine did not start and Moonlight could not see the PC.
-- Fix 1: the Sunshine service did not start by itself, so added `~/.config/autostart/sunshine-start.desktop` ("Sunshine (start)" in Menu → Applications au démarrage).
+- Fix 1: the Sunshine service did not start by itself, so added `~/.config/autostart/sunshine-start.desktop` ("Sunshine (start)" in Menu → Startup Applications).
 - Fix 2: autologin was too slow (LightDM `autologin-user-timeout=1`), so set `autologin-user-timeout=0` in `/etc/lightdm/lightdm.conf`.
 - Both are required. Confirmed after a real reboot.
 
