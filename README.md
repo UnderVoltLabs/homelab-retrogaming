@@ -37,6 +37,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 - Steam + Proton for PC games
 - Sunshine v2025.923.33222 (pinned) for streaming, web management on port 47990
 - Moonlight on the Sony Google TV (wired Ethernet)
+- RetroDECK (Flatpak), added to Steam as a non-Steam game and launched from Big Picture with Steam Input
 
 ## Progress
 
@@ -47,12 +48,36 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 | SSH remote administration (key-based) | ✅ Done |
 | NVIDIA 580 driver (DKMS, Secure Boot on, MOK-signed) | ✅ Done |
 | Steam + Proton | ✅ Done |
-| RetroDECK (NES to Wii U) | ⬜ Planned |
-| Native source ports | ⬜ Planned |
+| RetroDECK (NES to Wii U): install, Steam Big Picture link, inputs | ✅ Done |
 | Sunshine + Moonlight streaming | ✅ Done |
-| Controller-driven launcher menu | 💡 Idea |
+| Hardware monitoring | ⬜ Planned |
+
+## Controller hotkeys (RetroDECK)
+
+Prerequisite: Steam Input profile "RetroDECK: Xbox Wireless" (or "RetroDECK: Xbox 360") applied to RetroDECK in Big Picture → controller → Layout → Browse configs.
+
+Hold **Select (View)** plus:
+
+| Button | Action |
+|--------|--------|
+| RB | Save state |
+| LB | Load state |
+| Start | Quit game |
+| A | Pause |
+| Y | Emulator menu |
+| RT | Fast forward |
+| D-pad left/right | Change save slot |
+| Left stick | Radial menu (confirm with L3) |
+
+Works in RetroArch, Dolphin, PCSX2, Azahar and DuckStation. For Cemu, use the in-game save. Source: https://retrodeck.readthedocs.io/en/latest/wiki_rd_controls/hotkeys-xbox/
 
 ## Log
+
+### 2026-11-08
+- Installed RetroDECK over SSH: `sudo flatpak install -y flathub net.retrodeck.retrodeck` (`sudo` required over SSH).
+- First launch and configuration through Moonlight Desktop.
+- Added RetroDECK to Steam as a non-Steam game.
+- Inputs: enabled Steam Input in the RetroDECK properties; the controller shows up as an Xbox pad and the emulators are preconfigured.
 
 ### 2026-11-07
 - Bug: after a reboot, Sunshine did not start and Moonlight could not see the PC.
