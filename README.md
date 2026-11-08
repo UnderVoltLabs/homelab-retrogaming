@@ -50,6 +50,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 | Steam + Proton | ✅ Done |
 | RetroDECK (NES to Wii U): install, Steam Big Picture link, inputs | ✅ Done |
 | Sunshine + Moonlight streaming | ✅ Done |
+| Hardware monitoring | ⬜ Planned |
 
 ## Log
 
