@@ -38,6 +38,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 - Sunshine v2025.923.33222 (pinned) for streaming, web management on port 47990
 - Moonlight on the Sony Google TV (wired Ethernet)
 - Monitoring on demand over SSH (`ssh administrator@retrogaming`): `btop` (CPU/RAM/disk/network) and `nvtop` (GPU), installed with `sudo apt install btop nvtop`. Nothing runs in the background.
+- Custom GPU fan curve (`gpu-fan-curve` systemd service, Coolbits=4), see [gpu-fan/fan-curve.md](gpu-fan/fan-curve.md)
 - RetroDECK (Flatpak), added to Steam as a non-Steam game and launched from Big Picture with Steam Input
 
 ## Progress
@@ -52,10 +53,14 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 | RetroDECK (NES to Wii U): install, Steam Big Picture link, inputs | ✅ Done |
 | Sunshine + Moonlight streaming | ✅ Done |
 | Hardware monitoring (btop + nvtop, on demand over SSH) | ✅ Done |
+| Custom GPU fan curve (systemd service) | ✅ Done |
 
 ## Log
 
 ### 2026-11-08
+- Problem: with the stock fan curve, the GPU reached 80 °C after a 5-minute stress test.
+- Fix: custom fan curve, a script run by a systemd service (`gpu-fan-curve`), with Coolbits=4 enabled in Xorg. If anything fails, the fan goes back to the driver's auto mode.
+- Result: 62 °C on the same test. Procedure and scripts: [gpu-fan/fan-curve.md](gpu-fan/fan-curve.md).
 - Hardware monitoring: installed `btop` and `nvtop` (`sudo apt install btop nvtop`), run from the laptop over SSH. Netdata removed (too heavy). Tip: two SSH terminals side by side while playing via Moonlight.
 - Bought an 8BitDo Ultimate 2C controller (replaces the PowerA, plan changed from the Xbox controller).
 - Known issue: with no screen plugged in, the PC has no display, so the resolution falls back to 1024x768 (4:3) and the Moonlight stream has black bars on the TV.
