@@ -54,6 +54,8 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 | Sunshine + Moonlight streaming | ✅ Done |
 | Hardware monitoring (btop + nvtop, on demand over SSH) | ✅ Done |
 | Custom GPU fan curve (systemd service) | ✅ Done |
+| Security hardening | ⬜ Planned |
+| Resolution fix with a dummy DisplayPort plug | ⬜ Planned |
 
 ## Log
 
