@@ -37,6 +37,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 - Steam + Proton for PC games
 - Sunshine v2025.923.33222 (pinned) for streaming, web management on port 47990
 - Moonlight on the Sony Google TV (wired Ethernet)
+- Monitoring on demand over SSH (`ssh administrator@retrogaming`): `btop` (CPU/RAM/disk/network) and `nvtop` (GPU), installed with `sudo apt install btop nvtop`. Nothing runs in the background.
 - RetroDECK (Flatpak), added to Steam as a non-Steam game and launched from Big Picture with Steam Input
 
 ## Progress
@@ -50,11 +51,12 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 | Steam + Proton | ✅ Done |
 | RetroDECK (NES to Wii U): install, Steam Big Picture link, inputs | ✅ Done |
 | Sunshine + Moonlight streaming | ✅ Done |
-| Hardware monitoring | ⬜ Planned |
+| Hardware monitoring (btop + nvtop, on demand over SSH) | ✅ Done |
 
 ## Log
 
 ### 2026-11-08
+- Hardware monitoring: installed `btop` and `nvtop` (`sudo apt install btop nvtop`), run from the laptop over SSH. Netdata removed (too heavy). Tip: two SSH terminals side by side while playing via Moonlight.
 - Bought an 8BitDo Ultimate 2C controller (replaces the PowerA, plan changed from the Xbox controller).
 - Known issue: with no screen plugged in, the PC has no display, so the resolution falls back to 1024x768 (4:3) and the Moonlight stream has black bars on the TV.
 - Fix needed: buy a dummy plug (fake screen) for the GPU.
