@@ -69,10 +69,9 @@ sudo systemctl enable --now gpu-fan-curve
 
 ```bash
 journalctl -u gpu-fan-curve -n 5 --no-pager   # expect "Fan curve active: ..."
-nvidia-smi --query-gpu=temperature.gpu,fan.speed --format=csv -l 2
 ```
 
-For a load test, run [gpu-burn](https://github.com/wilicc/gpu-burn) in a second SSH session: `./gpu_burn 300`.
+Then watch the temperature and fan speed in `nvtop` while running [gpu-burn](https://github.com/wilicc/gpu-burn) in a second SSH session: `./gpu_burn 300`.
 
 ## Change the curve
 
