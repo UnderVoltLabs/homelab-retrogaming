@@ -1,41 +1,44 @@
-# Courbe de ventilateur GPU (Quadro P4000)
+# GPU fan curve
 
-Courbe de ventilateur « gaming » pour la box `retrogaming` (HP Z240, Linux Mint 22.3 Cinnamon, driver NVIDIA 580, session X11 auto-login via LightDM).
+A custom fan curve for the Quadro P4000 in the gaming box. The stock curve is tuned for silence and lets the card run hot under load; this one spins the fan up earlier.
 
-**Pourquoi :** avec la courbe d'usine (silencieuse), `gpu_burn` montait à 77 °C. Cette courbe fait tourner le ventilateur plus fort, plus tôt.
-
-## La courbe
-
-| Température GPU | Ventilateur |
+| | Peak GPU temperature (5-minute stress test) |
 |---|---|
-| 40 °C et moins | 40 % |
+| Stock curve | 80 °C |
+| Custom curve | 62 °C |
+
+## The curve
+
+| GPU temperature | Fan speed |
+|---|---|
+| 40 °C or less | 40 % |
 | 50 °C | 50 % |
 | 60 °C | 65 % |
 | 70 °C | 85 % |
-| 75 °C et plus | 100 % |
+| 75 °C or more | 100 % |
 
-Entre deux points, la vitesse suit une ligne droite. Le ventilateur accélère tout de suite, mais ralentit d'au plus 2 % toutes les 2 s (pas de yo-yo).
+Speeds between two points are interpolated linearly. The fan speeds up immediately but slows down by at most 2 % every 2 seconds, so it does not oscillate.
 
-## Fichiers
+## How it works
 
-| Fichier | Emplacement sur la box | Rôle |
+| File | Installed to | Purpose |
 |---|---|---|
-| `gpu-fan-curve.sh` | `/usr/local/bin/` | Le script : lit la température toutes les 2 s et règle le ventilateur |
-| `gpu-fan-curve.service` | `/etc/systemd/system/` | Le service systemd : lance le script au démarrage et le relance s'il plante |
-| `20-nvidia-coolbits.conf` | `/etc/X11/xorg.conf.d/` | Active Coolbits=4 dans X (autorise le contrôle manuel du ventilateur) |
+| [`gpu-fan-curve.sh`](gpu-fan-curve.sh) | `/usr/local/bin/` | Reads the GPU temperature every 2 s and sets the fan speed with `nvidia-settings` |
+| [`gpu-fan-curve.service`](gpu-fan-curve.service) | `/etc/systemd/system/` | Starts the script after LightDM and restarts it if it dies |
+| `20-nvidia-coolbits.conf` | `/etc/X11/xorg.conf.d/` | Enables `Coolbits=4`, which allows manual fan control |
 
-## Sécurités
+`nvidia-settings` needs a running X server, so the script uses LightDM's display (`DISPLAY=:0`, `XAUTHORITY=/var/run/lightdm/root/:0`). This relies on the autologin setup from 2026-11-07.
 
-- Coolbits=4 débloque uniquement le ventilateur (pas d'overclock, pas de tension).
-- Si la température est illisible ou si `nvidia-settings` échoue, le script rend le ventilateur au pilote (mode auto, courbe d'usine).
-- À l'arrêt du script (stop, reboot, Ctrl+C), le ventilateur repasse en auto. Si le script est tué (`kill -9`, plantage), le service le remet en auto (`ExecStopPost`) et relance le script après 5 s.
-- Dans tous les cas, la carte se protège seule (bridage puis arrêt). Seuils : `nvidia-smi -q -d TEMPERATURE` (lignes « Slowdown » et « Shutdown »).
+### Fail-safe
 
-## Installation
+- `Coolbits=4` only unlocks fan control: no overclocking, no voltage changes.
+- If the temperature can't be read or `nvidia-settings` fails, the fan goes back to the driver's automatic curve.
+- When the script stops for any reason (stop, reboot, crash, `kill -9`), the service's `ExecStopPost` hands the fan back to the driver, then restarts the script after 5 s.
+- The card still has its own hardware protection (throttling, then shutdown). See the thresholds with `nvidia-smi -q -d TEMPERATURE`.
 
-> Les gros blocs collés dans le terminal Windows se mélangent. On copie donc les fichiers avec `scp` au lieu de les coller.
+## Install
 
-### 1. Activer Coolbits (une seule fois, sur la box)
+### 1. Enable Coolbits (once)
 
 ```bash
 sudo mkdir -p /etc/X11/xorg.conf.d
@@ -49,60 +52,45 @@ EOF
 sudo reboot
 ```
 
-Vérifier après le reboot : `grep -i coolbits /var/log/Xorg.0.log` doit afficher `"Coolbits" "4"`.
+After the reboot, `grep -i coolbits /var/log/Xorg.0.log` should show `"Coolbits" "4"`.
 
-### 2. Envoyer les fichiers (PowerShell, sur le laptop)
+### 2. Install the script and the service
 
-```powershell
-scp "$HOME\Downloads\gpu-fan-curve.sh" "$HOME\Downloads\gpu-fan-curve.service" retrogaming:/tmp/
-```
-
-### 3. Installer et démarrer (sur la box)
+Copy the two files to the box (for example with `scp gpu-fan-curve.* retrogaming:/tmp/` from the laptop), then on the box:
 
 ```bash
-sudo systemctl stop gpu-fan-curve        # seulement si une ancienne version tourne
-sudo install -m 755 /tmp/gpu-fan-curve.sh /usr/local/bin/gpu-fan-curve.sh
-sudo install -m 644 /tmp/gpu-fan-curve.service /etc/systemd/system/gpu-fan-curve.service
-bash -n /usr/local/bin/gpu-fan-curve.sh && echo SCRIPT OK
+sudo install -m 755 /tmp/gpu-fan-curve.sh /usr/local/bin/
+sudo install -m 644 /tmp/gpu-fan-curve.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl reenable gpu-fan-curve
-sudo systemctl restart gpu-fan-curve
+sudo systemctl enable --now gpu-fan-curve
 ```
 
-## Vérifier
+## Verify
 
 ```bash
-journalctl -u gpu-fan-curve -n 5 --no-pager      # doit afficher "Fan curve active: ..."
+journalctl -u gpu-fan-curve -n 5 --no-pager   # expect "Fan curve active: ..."
 nvidia-smi --query-gpu=temperature.gpu,fan.speed --format=csv -l 2
 ```
 
-Test de charge (dans une 2e fenêtre SSH) : `cd ~/gpu-burn && ./gpu_burn 120`.
+For a load test, run [gpu-burn](https://github.com/wilicc/gpu-burn) in a second SSH session: `./gpu_burn 300`.
 
-## Modifier la courbe
+## Change the curve
 
-Modifier la ligne `CURVE=` dans `/usr/local/bin/gpu-fan-curve.sh` (format `température:vitesse`), puis :
+Edit the `CURVE=` line in `/usr/local/bin/gpu-fan-curve.sh` (`temperature:speed` pairs), then `sudo systemctl restart gpu-fan-curve`.
 
-```bash
-sudo systemctl restart gpu-fan-curve
-```
+## Troubleshooting
 
-Après une modification du fichier `.service`, faire d'abord `sudo systemctl daemon-reload`.
-
-## Dépannage
-
-| Symptôme | Cause probable | Solution |
+| Symptom | Likely cause | Fix |
 |---|---|---|
-| Journal : `nvidia-settings failed (X not ready or Coolbits missing)` | Coolbits pas pris par X, ou X pas démarré | Vérifier `grep -i coolbits /var/log/Xorg.0.log` et `pgrep -a Xorg`. Ventilateur en auto en attendant (sans danger) |
-| Journal : `Cannot read GPU temperature` | `nvidia-smi` ne répond pas (driver) | Vérifier `nvidia-smi`. Ventilateur en auto en attendant |
-| Écran noir après le reboot de l'étape 1 | Config X refusée | Par SSH : `sudo rm /etc/X11/xorg.conf.d/20-nvidia-coolbits.conf && sudo reboot` |
-| Doute sur l'index du ventilateur | | `sudo DISPLAY=:0 XAUTHORITY=/var/run/lightdm/root/:0 nvidia-settings -q fans` |
+| Log shows `nvidia-settings failed (X not ready or Coolbits missing)` | X is not running, or Coolbits was not applied | Check `pgrep -a Xorg` and `grep -i coolbits /var/log/Xorg.0.log`. The fan stays on auto meanwhile. |
+| Log shows `Cannot read GPU temperature` | `nvidia-smi` is not responding | Check `nvidia-smi` and the driver. The fan stays on auto meanwhile. |
+| Black screen after enabling Coolbits | X rejected the config | Over SSH: `sudo rm /etc/X11/xorg.conf.d/20-nvidia-coolbits.conf && sudo reboot` |
 
-## Désinstaller
+## Uninstall
 
 ```bash
 sudo systemctl disable --now gpu-fan-curve
 sudo rm /etc/systemd/system/gpu-fan-curve.service /usr/local/bin/gpu-fan-curve.sh
 sudo systemctl daemon-reload
-# optionnel, puis reboot :
-sudo rm /etc/X11/xorg.conf.d/20-nvidia-coolbits.conf
+sudo rm /etc/X11/xorg.conf.d/20-nvidia-coolbits.conf && sudo reboot   # optional
 ```

@@ -58,8 +58,9 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 ## Log
 
 ### 2026-11-08
-- Installed a custom GPU fan curve at about 21:46 (America/Toronto). Coolbits=4 is enabled through `/etc/X11/xorg.conf.d/20-nvidia-coolbits.conf`. The curve is 40 °C: 40 %, 50 °C: 50 %, 60 °C: 65 %, 70 °C: 85 %, 75 °C: 100 %, and it fails safe to the driver's automatic control. The `gpu-fan-curve` systemd service reaches X with Coolbits (the `ExecStopPost` reset worked).
-- Verified under load: a 5-minute stress test now peaks at 62 °C, versus 80 °C with the stock fan curve. Procedure and scripts: [gpu-fan/fan-curve.md](gpu-fan/fan-curve.md).
+- Problem: with the stock fan curve, the GPU reached 80 °C after a 5-minute stress test.
+- Fix: custom fan curve, a script run by a systemd service (`gpu-fan-curve`), with Coolbits=4 enabled in Xorg. If anything fails, the fan goes back to the driver's auto mode.
+- Result: 62 °C on the same test. Procedure and scripts: [gpu-fan/fan-curve.md](gpu-fan/fan-curve.md).
 - Hardware monitoring: installed `btop` and `nvtop` (`sudo apt install btop nvtop`), run from the laptop over SSH. Netdata removed (too heavy). Tip: two SSH terminals side by side while playing via Moonlight.
 - Bought an 8BitDo Ultimate 2C controller (replaces the PowerA, plan changed from the Xbox controller).
 - Known issue: with no screen plugged in, the PC has no display, so the resolution falls back to 1024x768 (4:3) and the Moonlight stream has black bars on the TV.
