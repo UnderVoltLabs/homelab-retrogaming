@@ -36,10 +36,22 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 - NVIDIA driver 580.178.04 via DKMS, signed with a personal MOK key
 - Steam + Proton for PC games
 - Sunshine v2025.923.33222 (pinned) for streaming, web management on port 47990
-- Moonlight on the Sony Google TV (wired Ethernet)
+- Moonlight on the Sony Google TV (wired Ethernet), with **Frame pacing set to "Lowest latency"** (see [input lag](#input-lag-tips))
+- Controller: 8BitDo Ultimate 2C on its **2.4 GHz USB dongle**, plugged directly into the USB port of the device that receives the controller (not Bluetooth)
 - Monitoring on demand over SSH (`ssh administrator@retrogaming`): `btop` (CPU/RAM/disk/network) and `nvtop` (GPU), installed with `sudo apt install btop nvtop`. Nothing runs in the background.
 - Custom GPU fan curve (`gpu-fan-curve` systemd service, Coolbits=4), see [gpu-fan/fan-curve.md](gpu-fan/fan-curve.md)
 - RetroDECK (Flatpak), added to Steam as a non-Steam game and launched from Big Picture with Steam Input
+
+## Input lag tips
+
+Playing through Moonlight on the Sony Google TV, input lag was too high with a Bluetooth controller. What fixed it:
+
+1. **Controller on a 2.4 GHz USB dongle** instead of Bluetooth, plugged directly into the USB port of the device that receives the controller. Bluetooth (PowerA, Switch pad on the TV) works but has noticeably more lag.
+2. **Moonlight → Settings → Frame pacing: "Lowest latency"** (instead of the smooth/balanced modes, which add buffering).
+
+Also recommended:
+- Enable the TV's **Game Mode** (disables image post-processing).
+- Keep the TV on **wired Ethernet** (as now) or Wi-Fi 5 GHz. 2.4 GHz Wi-Fi shares the antenna and the band with Bluetooth and increases latency and interference.
 
 ## Progress
 
@@ -54,10 +66,17 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 | Sunshine + Moonlight streaming | ✅ Done |
 | Hardware monitoring (btop + nvtop, on demand over SSH) | ✅ Done |
 | Custom GPU fan curve (systemd service) | ✅ Done |
+| Controller input lag fix (2.4 GHz dongle + Moonlight frame pacing) | ✅ Done |
 | Security hardening | ⬜ Planned |
 | Resolution fix with a dummy DisplayPort plug | ⬜ Planned |
 
 ## Log
+
+### 2026-11-11
+- Problem: too much input lag when playing through Moonlight on the Sony Google TV with a Bluetooth controller.
+- Fix: new controller used on its **2.4 GHz USB dongle**, plugged directly into the USB port of the device that receives the controller, instead of Bluetooth; and Moonlight **Frame pacing set to "Lowest latency"**.
+- The earlier Bluetooth setups (PowerA, Switch pad on the TV) are kept as fallbacks but have more lag.
+- Tips: TV Game Mode on; TV on Ethernet or Wi-Fi 5 GHz (2.4 GHz Wi-Fi competes with Bluetooth). See [Input lag tips](#input-lag-tips).
 
 ### 2026-11-08
 - Problem: with the stock fan curve, the GPU reached 80 °C after a 5-minute stress test.
