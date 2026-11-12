@@ -46,7 +46,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 
 Playing through Moonlight on the Sony Google TV, input lag was too high with a Bluetooth controller. What fixed it:
 
-1. **Controller on a 2.4 GHz USB dongle** instead of Bluetooth, plugged directly into the USB port of the device that receives the controller. Bluetooth (PowerA, Switch pad on the TV) works but has noticeably more lag.
+1. **Controller on a 2.4 GHz USB dongle** instead of Bluetooth, plugged directly into the USB port of the device that receives the controller. Bluetooth (e.g. a Switch pad on the TV) works but has noticeably more lag.
 2. **Moonlight → Settings → Frame pacing: "Lowest latency"** (instead of the smooth/balanced modes, which add buffering).
 
 Also recommended:
@@ -75,7 +75,7 @@ Also recommended:
 ### 2026-11-11
 - Problem: too much input lag when playing through Moonlight on the Sony Google TV with a Bluetooth controller.
 - Fix: new controller used on its **2.4 GHz USB dongle**, plugged directly into the USB port of the device that receives the controller, instead of Bluetooth; and Moonlight **Frame pacing set to "Lowest latency"**.
-- The earlier Bluetooth setups (PowerA, Switch pad on the TV) are kept as fallbacks but have more lag.
+- The earlier Bluetooth setups (e.g. a Switch pad on the TV) are kept as fallbacks but have more lag.
 - Tips: TV Game Mode on; TV on Ethernet or Wi-Fi 5 GHz (2.4 GHz Wi-Fi competes with Bluetooth). See [Input lag tips](#input-lag-tips).
 
 ### 2026-11-08
