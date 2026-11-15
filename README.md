@@ -47,6 +47,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 - Dummy plug forced to 1920x1080@60 before Sunshine (`set-1080p` user service), see [dummy-plug-1080p/dummy-plug-1080p.md](dummy-plug-1080p/dummy-plug-1080p.md)
 - Firewall: `ufw` enabled (default deny incoming, allow outgoing), LAN `<LAN_SUBNET>` and `tailscale0` allowed
 - RetroDECK (Flatpak), added to Steam as a non-Steam game and launched from Big Picture with Steam Input
+- UGREEN Displayport Dummy Plug, 4K@60Hz, 1080P@120Hz
 
 ## Input lag tips
 
