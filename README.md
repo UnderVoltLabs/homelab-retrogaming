@@ -1,5 +1,9 @@
 # 🎮 homelab-retrogaming
 
+> [!IMPORTANT]
+> **Final update (2026-11-15).** This is the last update of the homelab: the project is finished and
+> **this repository will receive no further updates.**
+
 A repurposed desktop being turned into a **solo gaming box** (work in progress): emulation from the
 NES to the Wii U and PC games through Proton, all driven from a controller
 and streamed to other screens in the house.
@@ -40,6 +44,8 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 - Controller: 8BitDo Ultimate 2C on its **2.4 GHz USB dongle**, plugged directly into the USB port of the device that receives the controller (not Bluetooth)
 - Monitoring on demand over SSH (`ssh administrator@retrogaming`): `btop` (CPU/RAM/disk/network) and `nvtop` (GPU), installed with `sudo apt install btop nvtop`. Nothing runs in the background.
 - Custom GPU fan curve (`gpu-fan-curve` systemd service, Coolbits=4), see [gpu-fan/fan-curve.md](gpu-fan/fan-curve.md)
+- Dummy plug forced to 1920x1080@60 before Sunshine (`set-1080p` user service), see [dummy-plug-1080p/dummy-plug-1080p.md](dummy-plug-1080p/dummy-plug-1080p.md)
+- Firewall: `ufw` enabled (default deny incoming, allow outgoing), LAN `<LAN_SUBNET>` and `tailscale0` allowed
 - RetroDECK (Flatpak), added to Steam as a non-Steam game and launched from Big Picture with Steam Input
 
 ## Input lag tips
@@ -67,10 +73,22 @@ Also recommended:
 | Hardware monitoring (btop + nvtop, on demand over SSH) | ✅ Done |
 | Custom GPU fan curve (systemd service) | ✅ Done |
 | Controller input lag fix (2.4 GHz dongle + Moonlight frame pacing) | ✅ Done |
-| Security hardening | ⬜ Planned |
-| Resolution fix with a dummy DisplayPort plug | ⬜ Planned |
+| Firewall (`ufw`: LAN + Tailscale only) | ✅ Done |
+| Resolution fix with a dummy DisplayPort plug (1080p60 user service) | ✅ Done |
 
 ## Log
+
+### 2026-11-15 (final update)
+- Firewall: the owner enabled `ufw` (default deny incoming, allow outgoing, `ufw allow from <LAN_SUBNET>`, `ufw allow in on tailscale0`). Status confirmed: LAN `<LAN_SUBNET>` and `tailscale0` (v4 + v6) allowed. SSH/scp and Sunshine/Moonlight work from the LAN and Tailscale. Rollback: `sudo ufw disable`.
+- Decision: no full security hardening. No port is open to the Internet, the box is reachable only from the LAN and Tailscale, it is off about 95% of the time, and automatic updates could break the legacy NVIDIA 580 driver.
+- **This is the final update of the homelab. The repository will receive no further updates.**
+
+### 2026-11-15
+- Problem: the dummy plug came up at 4096x2160 @ 29.97 Hz, so Sunshine streamed 4K at 30 Hz and Steam Big Picture looked tiny in Moonlight.
+- Fix: `set-1080p.sh` forces the connected output (DP-7) to 1920x1080 @ 60 Hz with `xrandr`, run by the `set-1080p` systemd **user** service before `sunshine.service`.
+- First attempt hooked the service to `xdg-desktop-autostart.target`, which Cinnamon never triggers, so the resolution was back to 4K after a reboot. Hooking it to `sunshine.service` fixed it. Confirmed after a real reboot.
+- Sunshine: removed the `Low Res Desktop` app (it targeted a non-existent `HDMI-1`). Remaining: Desktop, Steam Big Picture, RetroDECK.
+- Xorg `MetaModes` not used (a wrong value can cause a black screen). Procedure and files: [dummy-plug-1080p/dummy-plug-1080p.md](dummy-plug-1080p/dummy-plug-1080p.md).
 
 ### 2026-11-11
 - Problem: too much input lag when playing through Moonlight on the Sony Google TV with a Bluetooth controller.
