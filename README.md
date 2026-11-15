@@ -69,9 +69,16 @@ Also recommended:
 | Custom GPU fan curve (systemd service) | ✅ Done |
 | Controller input lag fix (2.4 GHz dongle + Moonlight frame pacing) | ✅ Done |
 | Security hardening | ⬜ Planned |
-| Resolution fix with a dummy DisplayPort plug | ⬜ Planned |
+| Resolution fix with a dummy DisplayPort plug (1080p60 user service) | ✅ Done |
 
 ## Log
+
+### 2026-11-15
+- Problem: the dummy plug came up at 4096x2160 @ 29.97 Hz, so Sunshine streamed 4K at 30 Hz and Steam Big Picture looked tiny in Moonlight.
+- Fix: `set-1080p.sh` forces the connected output (DP-7) to 1920x1080 @ 60 Hz with `xrandr`, run by the `set-1080p` systemd **user** service before `sunshine.service`.
+- First attempt hooked the service to `xdg-desktop-autostart.target`, which Cinnamon never triggers, so the resolution was back to 4K after a reboot. Hooking it to `sunshine.service` fixed it. Confirmed after a real reboot.
+- Sunshine: removed the `Low Res Desktop` app (it targeted a non-existent `HDMI-1`). Remaining: Desktop, Steam Big Picture, RetroDECK.
+- Xorg `MetaModes` not used (a wrong value can cause a black screen). Procedure and files: [dummy-plug-1080p/dummy-plug-1080p.md](dummy-plug-1080p/dummy-plug-1080p.md).
 
 ### 2026-11-11
 - Problem: too much input lag when playing through Moonlight on the Sony Google TV with a Bluetooth controller.
