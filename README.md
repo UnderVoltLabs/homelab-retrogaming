@@ -45,7 +45,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 - Monitoring on demand over SSH (`ssh administrator@retrogaming`): `btop` (CPU/RAM/disk/network) and `nvtop` (GPU), installed with `sudo apt install btop nvtop`. Nothing runs in the background.
 - Custom GPU fan curve (`gpu-fan-curve` systemd service, Coolbits=4), see [gpu-fan/fan-curve.md](gpu-fan/fan-curve.md)
 - Dummy plug forced to 1920x1080@60 before Sunshine (`set-1080p` user service), see [dummy-plug-1080p/dummy-plug-1080p.md](dummy-plug-1080p/dummy-plug-1080p.md)
-- Firewall: `ufw` enabled (default deny incoming, allow outgoing), LAN `<LAN_SUBNET>` and `tailscale0` allowed, see [Security](#security)
+- Firewall: `ufw` enabled (default deny incoming, allow outgoing), LAN `<LAN_SUBNET>` and `tailscale0` allowed
 - RetroDECK (Flatpak), added to Steam as a non-Steam game and launched from Big Picture with Steam Input
 
 ## Input lag tips
@@ -58,16 +58,6 @@ Playing through Moonlight on the Sony Google TV, input lag was too high with a B
 Also recommended:
 - Enable the TV's **Game Mode** (disables image post-processing).
 - Keep the TV on **wired Ethernet** (as now) or Wi-Fi 5 GHz. 2.4 GHz Wi-Fi shares the antenna and the band with Bluetooth and increases latency and interference.
-
-## Security
-
-Full hardening was **abandoned** on purpose, and only a firewall was set up:
-
-- The box has no port open to the Internet. It is reachable only from the LAN and over Tailscale, and it is powered off about 95% of the time.
-- - Firewall (`ufw`): default deny incoming, allow outgoing, then
-  `sudo ufw allow from <LAN_SUBNET>` and `sudo ufw allow in on tailscale0`.
-  Status confirmed: LAN `<LAN_SUBNET>` and `tailscale0` (v4 + v6) allowed. SSH/scp and Sunshine/Moonlight work from both the LAN and Tailscale.
-- Rollback: `sudo ufw disable`.
 
 ## Progress
 
@@ -83,7 +73,6 @@ Full hardening was **abandoned** on purpose, and only a firewall was set up:
 | Hardware monitoring (btop + nvtop, on demand over SSH) | ✅ Done |
 | Custom GPU fan curve (systemd service) | ✅ Done |
 | Controller input lag fix (2.4 GHz dongle + Moonlight frame pacing) | ✅ Done |
-| Security hardening (full hardening abandoned, see [Security](#security)) | ❌ Abandoned |
 | Firewall (`ufw`: LAN + Tailscale only) | ✅ Done |
 | Resolution fix with a dummy DisplayPort plug (1080p60 user service) | ✅ Done |
 
