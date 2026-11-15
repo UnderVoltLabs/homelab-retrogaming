@@ -1,5 +1,9 @@
 # 🎮 homelab-retrogaming
 
+> [!IMPORTANT]
+> **Final update (2026-11-15).** This is the last update of the homelab: the project is finished and
+> **this repository will receive no further updates.**
+
 A repurposed desktop being turned into a **solo gaming box** (work in progress): emulation from the
 NES to the Wii U and PC games through Proton, all driven from a controller
 and streamed to other screens in the house.
@@ -41,6 +45,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 - Monitoring on demand over SSH (`ssh administrator@retrogaming`): `btop` (CPU/RAM/disk/network) and `nvtop` (GPU), installed with `sudo apt install btop nvtop`. Nothing runs in the background.
 - Custom GPU fan curve (`gpu-fan-curve` systemd service, Coolbits=4), see [gpu-fan/fan-curve.md](gpu-fan/fan-curve.md)
 - Dummy plug forced to 1920x1080@60 before Sunshine (`set-1080p` user service), see [dummy-plug-1080p/dummy-plug-1080p.md](dummy-plug-1080p/dummy-plug-1080p.md)
+- Firewall: `ufw` enabled (default deny incoming, allow outgoing), LAN `<LAN_SUBNET>` and `tailscale0` allowed, see [Security](#security)
 - RetroDECK (Flatpak), added to Steam as a non-Steam game and launched from Big Picture with Steam Input
 
 ## Input lag tips
@@ -53,6 +58,16 @@ Playing through Moonlight on the Sony Google TV, input lag was too high with a B
 Also recommended:
 - Enable the TV's **Game Mode** (disables image post-processing).
 - Keep the TV on **wired Ethernet** (as now) or Wi-Fi 5 GHz. 2.4 GHz Wi-Fi shares the antenna and the band with Bluetooth and increases latency and interference.
+
+## Security
+
+Full hardening was **abandoned** on purpose, and only a firewall was set up:
+
+- The box has no port open to the Internet. It is reachable only from the LAN and over Tailscale, and it is powered off about 95% of the time.
+- - Firewall (`ufw`): default deny incoming, allow outgoing, then
+  `sudo ufw allow from <LAN_SUBNET>` and `sudo ufw allow in on tailscale0`.
+  Status confirmed: LAN `<LAN_SUBNET>` and `tailscale0` (v4 + v6) allowed. SSH/scp and Sunshine/Moonlight work from both the LAN and Tailscale.
+- Rollback: `sudo ufw disable`.
 
 ## Progress
 
@@ -68,10 +83,16 @@ Also recommended:
 | Hardware monitoring (btop + nvtop, on demand over SSH) | ✅ Done |
 | Custom GPU fan curve (systemd service) | ✅ Done |
 | Controller input lag fix (2.4 GHz dongle + Moonlight frame pacing) | ✅ Done |
-| Security hardening | ⬜ Planned |
+| Security hardening (full hardening abandoned, see [Security](#security)) | ❌ Abandoned |
+| Firewall (`ufw`: LAN + Tailscale only) | ✅ Done |
 | Resolution fix with a dummy DisplayPort plug (1080p60 user service) | ✅ Done |
 
 ## Log
+
+### 2026-11-15 (final update)
+- Firewall: the owner enabled `ufw` (default deny incoming, allow outgoing, `ufw allow from <LAN_SUBNET>`, `ufw allow in on tailscale0`). Status confirmed: LAN `<LAN_SUBNET>` and `tailscale0` (v4 + v6) allowed. SSH/scp and Sunshine/Moonlight work from the LAN and Tailscale. Rollback: `sudo ufw disable`.
+- Decision: no full security hardening. No port is open to the Internet, the box is reachable only from the LAN and Tailscale, it is off about 95% of the time, and automatic updates could break the legacy NVIDIA 580 driver.
+- **This is the final update of the homelab. The repository will receive no further updates.**
 
 ### 2026-11-15
 - Problem: the dummy plug came up at 4096x2160 @ 29.97 Hz, so Sunshine streamed 4K at 30 Hz and Steam Big Picture looked tiny in Moonlight.
