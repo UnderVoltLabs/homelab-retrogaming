@@ -40,6 +40,7 @@ Router ── UGREEN switch ──┬── Sony Google TV (wired Ethernet)
 - Controller: 8BitDo Ultimate 2C on its **2.4 GHz USB dongle**, plugged directly into the USB port of the device that receives the controller (not Bluetooth)
 - Monitoring on demand over SSH (`ssh administrator@retrogaming`): `btop` (CPU/RAM/disk/network) and `nvtop` (GPU), installed with `sudo apt install btop nvtop`. Nothing runs in the background.
 - Custom GPU fan curve (`gpu-fan-curve` systemd service, Coolbits=4), see [gpu-fan/fan-curve.md](gpu-fan/fan-curve.md)
+- Dummy plug forced to 1920x1080@60 before Sunshine (`set-1080p` user service), see [dummy-plug-1080p/dummy-plug-1080p.md](dummy-plug-1080p/dummy-plug-1080p.md)
 - RetroDECK (Flatpak), added to Steam as a non-Steam game and launched from Big Picture with Steam Input
 
 ## Input lag tips
