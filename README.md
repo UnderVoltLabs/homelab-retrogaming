@@ -4,7 +4,7 @@
 > **Final update (2026-11-15).** This is the last update of the homelab: the project is finished and
 > **this repository will receive no further updates.**
 
-A repurposed desktop being turned into a **solo gaming box** (work in progress): emulation from the
+A repurposed desktop being turned into a **solo gaming box** : emulation from the
 NES to the Wii U and PC games through Proton, all driven from a controller
 and streamed to other screens in the house.
 
